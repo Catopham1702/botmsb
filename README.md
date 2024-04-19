@@ -352,8 +352,11 @@ Ngay cả khi hiệu suất huấn luyện có vẻ không tối ưu, các mô h
 Một bước kiểm soát chất lượng nữa. Hãy kiểm tra với một số chỉ số thử nghiệm xem quá trình tinh chỉnh có ảnh hưởng đến khả năng ban đầu của mô hình hay không. Các đánh giá được thực hiện bằng cách sử dụng [EleutherAI's LM Eval Harness.](https://github.com/EleutherAI/lm-evaluation-harness)
 
 Lưu ý: Các chỉ số thử nghiệm, mặc dù hữu ích, có thể dẫn đến hiểu lầm vì chúng thường chỉ là mục tiêu thay vì chỉ số. Bảng xếp hạng lớn của [ Open LLM Leaderboard](https://github.com/EleutherAI/lm-evaluation-harness) 🤗 bị ảnh hưởng bởi các mô hình được huấn luyện trên dữ liệu thử nghiệm. Liên quan:  [ Pretraining on the Test Set Is All You Need.](https://arxiv.org/abs/2309.08632). Các nỗ lực làm sạch dữ liệu dường như đã mở ra một lĩnh vực nghiên cứu mới[ opened up a new sub-field of research](https://arxiv.org/abs/2309.08632). Vui lòng đánh giá thêm kết quả của chỉ số thử nghiệm nói chung.
+
 ![](./images/1ae69778-faf5-404a-ac36-e342f73488a5.jpg)
+
 ![](./images/a80fc2ed-9ed6-41d0-9334-28acacde011b.jpg)
+
 Kết quả thử nghiệm chỉ ra sự biến động nhỏ trong các chỉ số hiệu suất cho mô hình đã được điều chỉnh so với mô hình cơ bản, không có sự suy giảm đáng kể nào cho thấy mất tri thức.
 
 Với những chỉ báo tích cực này, hãy tiếp tục trò chuyện với mô hình và đánh giá kỹ năng trò chuyện của nó.
