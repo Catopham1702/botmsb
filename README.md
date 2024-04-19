@@ -339,5 +339,24 @@ Một trường hợp sử dụng thực tế hơn có thể là ngăn chặn vi
 Cách sử dụng ví dụ: `--logit-bias 29905-inf`
 
 
+## Analysis
+Huấn luyện trong 20 epochs có thể dường như là quá mức. Để so sánh, một bộ dữ liệu có khoảng 12k cuộc trò chuyện thường chỉ yêu cầu 3 epochs. Áp dụng logic này vào bộ dữ liệu đố vui của chúng ta: 1 epoch = 1680 cuộc trò chuyện, mục tiêu của chúng tôi là huấn luyện trên khoảng 36k cuộc trò chuyện tổng cộng, điều này tương đương với khoảng 21 epochs.
+![Train](https://cdn-uploads.huggingface.co/production/uploads/64da2a58c307ee5369b92d36/rwlWS65UjeKs0bf38Er6G.jpeg)
+Phi-2 được điều chỉnh tinh chỉnh trên [g-ronimo](https://huggingface.co/datasets/g-ronimo/riddles_evolved~) QLoRa. 20 epochs. LR=2*10e-5 (constant), BS=1, steps=16. Mất 40 phút trên 4x3090. Huấn luyện trên một NVIDIA GeForce RTX 3090 duy nhất mất khoảng 2.5 giờ.
+
+Dường như mô hình đang bị quá mức. Mất giảm trong khi mất tính trên tập kiểm tra giữ nguyên, các đường cong mất tích bắt đầu rời nhau. Điều này là hiện tượng đã được biết đến khi huấn luyện LLMs, đã được quan sát trước đó. Jeremy Howard đã viết một bài đăng blog tuyệt vời về vấn đề này.
+
+Ngay cả khi hiệu suất huấn luyện có vẻ không tối ưu, các mô hình được huấn luyện qua điểm phân biệt mất tích cuối cùng vẫn cho ra kết quả khá tốt. Tôi đã so sánh các đầu ra ở các epoch 7 (khi bắt đầu phân biệt mất tích) và epoch 20 và các phản hồi của mô hình đã cải thiện đáng kể.
+
+## Benchmarks
+Một bước kiểm soát chất lượng nữa. Hãy kiểm tra với một số chỉ số thử nghiệm xem quá trình tinh chỉnh có ảnh hưởng đến khả năng ban đầu của mô hình hay không. Các đánh giá được thực hiện bằng cách sử dụng [EleutherAI's LM Eval Harness.](https://github.com/EleutherAI/lm-evaluation-harness)
+
+Lưu ý: Các chỉ số thử nghiệm, mặc dù hữu ích, có thể dẫn đến hiểu lầm vì chúng thường chỉ là mục tiêu thay vì chỉ số. Bảng xếp hạng lớn của [ Open LLM Leaderboard](https://github.com/EleutherAI/lm-evaluation-harness) 🤗 bị ảnh hưởng bởi các mô hình được huấn luyện trên dữ liệu thử nghiệm. Liên quan:  [ Pretraining on the Test Set Is All You Need.](https://arxiv.org/abs/2309.08632). Các nỗ lực làm sạch dữ liệu dường như đã mở ra một lĩnh vực nghiên cứu mới[ opened up a new sub-field of research](https://arxiv.org/abs/2309.08632). Vui lòng đánh giá thêm kết quả của chỉ số thử nghiệm nói chung.
+![](./images/)
+![](./images/)
+Kết quả thử nghiệm chỉ ra sự biến động nhỏ trong các chỉ số hiệu suất cho mô hình đã được điều chỉnh so với mô hình cơ bản, không có sự suy giảm đáng kể nào cho thấy mất tri thức.
+
+Với những chỉ báo tích cực này, hãy tiếp tục trò chuyện với mô hình và đánh giá kỹ năng trò chuyện của nó.
+
 
 
